@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[[source]]
+url = "<my-pypi-registry>"
+verify_ssl = true
+name = "mypypi"
+
+[packages]
+django = "*"
+mysqlclient = {path = "./mysqlclient-2.1.1-cp39-cp39-win_amd64.whl"}
+websocket = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true
