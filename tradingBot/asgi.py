@@ -16,10 +16,10 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tradingBot.settings')
 
 # application = get_asgi_application()
 application = ProtocolTypeRouter({
-    # 'http':get_asgi_application(),
-    # 'websocket':AuthMiddlewareStack(
-    #     URLRouter(
-    #         playground.routing.websocket_urlpatterns
-    #     )
-    # )
+    'http':get_asgi_application(),
+    'websocket':AuthMiddlewareStack(
+        URLRouter(
+            playground.routing.websocket_urlpatterns
+        )
+    )
 })

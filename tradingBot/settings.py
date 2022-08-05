@@ -38,8 +38,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'channels',
-    
-    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -90,15 +88,14 @@ TEMPLATES = [
 #         'BACKEND':'channels.layers.InMemoryChannelLayer'
 #     }
 # }
-# CHANNEL_LAYERS ={
-#     'default': {
-#         'BACKEND':'channels_redis.core.RedisChannelLayer',
-#         'CONFIG':{
-#             "hosts":[('127.0.0.1' , 6379)]
-            
-#         }
-#     }
-# }
+CHANNEL_LAYERS ={
+    'default': {
+        'BACKEND':'channels_redis.core.RedisChannelLayer',
+        'CONFIG':{
+            "hosts":[("127.0.0.1" , 6379)]
+        }
+    }
+}
 
 
 # Database
