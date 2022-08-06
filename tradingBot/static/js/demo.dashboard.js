@@ -25,10 +25,15 @@ function(t) {
 }(window.jQuery);
 
 
+// let tableheader = JSON.parse("{{context|escapejs}}");
 var lastDate = 0;
-var data = []
+// var data = []
 var TICKINTERVAL = 86400000
 let XAXISRANGE = 777600000
+    // var data = JSON.parse("{{data|escapejs}}");
+const data = JSON.parse(document.getElementById('data').textContent);
+console.log(data)
+
 
 function getNewSeries(baseval, yrange) {
     var newDate = baseval + TICKINTERVAL;

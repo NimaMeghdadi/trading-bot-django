@@ -1,6 +1,8 @@
+from multiprocessing import context
 from django.shortcuts import render
 from django.http import HttpResponse
 from store.models import Customer
+from json import dumps
 # Create your views here.
 
 
@@ -13,7 +15,20 @@ def add(request):
     return render(request,'add/add.html')
 
 def index(request):
-    return render(request,'add/index.html')
+    dataDictionary = {
+        'hello': 'World',
+        'geeks': 'forgeeks',
+        'ABC': 123,
+        456: 'abc',
+        14000605: 1,
+        'list': ['geeks', 4, 'geeks'],
+        'dictionary': {'you': 'can', 'send': 'anything', 3: 1}
+    }
+    # dump data
+    dataJSON = dumps(dataDictionary)
+    return render(request,'add/index.html' , context={"data":dataJSON})
 
 def lobby(request):
-    return render(request,'playground/lobby.html')
+    data = 1
+    context = {'data':data }
+    return render(request,'playground/lobby.html' , context)

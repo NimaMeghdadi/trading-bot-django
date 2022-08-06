@@ -6,5 +6,6 @@ urlpatterns = [
     path('add' , views.add , name= "add"),
     path('' , views.index , name= "index"),
     path('chat' , views.lobby , name= "lobby")
+    # path('' , views.lobby , name= "lobby")
     
 ]
