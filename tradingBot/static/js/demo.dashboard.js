@@ -24,29 +24,58 @@ function(t) {
     t(document).ready(function(e) { t.Dashboard.init() })
 }(window.jQuery);
 
-
-// let tableheader = JSON.parse("{{context|escapejs}}");
 var lastDate = 0;
-// var data = []
+var data = []
 var TICKINTERVAL = 86400000
 let XAXISRANGE = 777600000
     // var data = JSON.parse("{{data|escapejs}}");
-const data = JSON.parse(document.getElementById('data').textContent);
-console.log(data)
+const dataa = JSON.parse(document.getElementById('data').textContent);
+console.log(dataa)
+
+let url = `ws://${window.location.host}/ws/socket-server/`
+
+const dataSocket = new WebSocket(url)
+dataSocket.onopen = function(e) {
+    console.log('connection establish')
+
+}
+dataSocket.onmessage = function(e) {
+    // console.log(e["data"])
+    var recData = JSON.parse(e.data);
+    console.log(recData['value'])
+
+
+    baseval = lastDate
+    var newDate = baseval + TICKINTERVAL;
+    lastDate = newDate
+    for (var i = 0; i < data.length - 10; i++) {
+        data[i].x = newDate - XAXISRANGE - TICKINTERVAL
+        data[i].y = 0
+    }
+    data.push({
+        x: newDate,
+        y: Math.floor(recData['value'])
+    })
+
+    chart.updateSeries([{
+        data: data
+    }])
+
+}
+dataSocket.onclose = function(e) {
+        console.log('connection close')
+
+    }
+    // let tableheader = JSON.parse("{{context|escapejs}}");
 
 
 function getNewSeries(baseval, yrange) {
     var newDate = baseval + TICKINTERVAL;
     lastDate = newDate
-
     for (var i = 0; i < data.length - 10; i++) {
-        // IMPORTANT
-        // we reset the x and y of the data which is out of drawing area
-        // to prevent memory leaks
         data[i].x = newDate - XAXISRANGE - TICKINTERVAL
         data[i].y = 0
     }
-
     data.push({
         x: newDate,
         y: Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min
@@ -103,13 +132,13 @@ var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 
 
-window.setInterval(function() {
-    getNewSeries(lastDate, {
-        min: 10,
-        max: 90
-    })
+// window.setInterval(function() {
+//     getNewSeries(lastDate, {
+//         min: 10,
+//         max: 90
+//     })
 
-    chart.updateSeries([{
-        data: data
-    }])
-}, 1000)
+//     chart.updateSeries([{
+//         data: data
+//     }])
+// }, 1000)
