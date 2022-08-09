@@ -1,10 +1,9 @@
 from binance import Binance
 from huobi import Huobi
 from datetime import datetime
-
 import threading
 import time
-
+import websocket,json,random
 
 # print top bid/ask for each exchange
 # run forever
@@ -21,9 +20,12 @@ def run(orderbooks, lock):
                 for key, value in orderbooks.items():
                     if key != 'last_update':
                         # bid = value['bids'][0][0]
-                        ask = value['lastPrice']
-                        print(f"{key}  ask: {ask}")
+                        price = value['lastPrice']
+                        print(f"{key}  Price: {price}")
                 print()
+                pp=json.dumps({'indexName':'stock1'
+                ,'value':price})
+                ws.send(pp)
 
                 # set local last_update to last_update
                 # current_time = orderbooks['last_update']
@@ -33,6 +35,8 @@ def run(orderbooks, lock):
 
 
 if __name__ == "__main__":
+    ws=websocket.WebSocket()
+    ws.connect('ws://localhost:8000/ws/socket-server/')
     # data management
     lock = threading.Lock()
     orderbooks = {

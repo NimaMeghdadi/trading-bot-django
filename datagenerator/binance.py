@@ -1,7 +1,7 @@
 from client import Client
-from json import loads
+from json import loads 
 from datetime import datetime
-
+import json
 import requests
 from socket import socket
 import websocket 
@@ -21,7 +21,7 @@ class Binance(Client):
 
     # convert message to dict, process update
     def on_message(self, message):
-        data = loads(message)
+        data = json.loads(message)
         value = data['c']
         # self.orderbook['lastPrice'].insert(value)
         self.orderbook['lastPrice'] = value
@@ -30,7 +30,7 @@ class Binance(Client):
     def on_open(ws):
         print("Connected to Binance")
 
-    def on_error(ws, error):
+    def on_error(ws, error , a):
         print(error)
 
     def on_close(ws, close_status_code, close_msg):

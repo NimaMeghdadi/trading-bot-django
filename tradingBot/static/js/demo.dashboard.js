@@ -29,58 +29,10 @@ var data = []
 var TICKINTERVAL = 86400000
 let XAXISRANGE = 777600000
     // var data = JSON.parse("{{data|escapejs}}");
-const dataa = JSON.parse(document.getElementById('data').textContent);
-console.log(dataa)
-
-let url = `ws://${window.location.host}/ws/socket-server/`
-
-const dataSocket = new WebSocket(url)
-dataSocket.onopen = function(e) {
-    console.log('connection establish')
-
-}
-dataSocket.onmessage = function(e) {
-    // console.log(e["data"])
-    var recData = JSON.parse(e.data);
-    console.log(recData['value'])
+    // const dataa = JSON.parse(document.getElementById('data').textContent);
+    // console.log(dataa)
 
 
-    baseval = lastDate
-    var newDate = baseval + TICKINTERVAL;
-    lastDate = newDate
-    for (var i = 0; i < data.length - 10; i++) {
-        data[i].x = newDate - XAXISRANGE - TICKINTERVAL
-        data[i].y = 0
-    }
-    data.push({
-        x: newDate,
-        y: Math.floor(recData['value'])
-    })
-
-    chart.updateSeries([{
-        data: data
-    }])
-
-}
-dataSocket.onclose = function(e) {
-        console.log('connection close')
-
-    }
-    // let tableheader = JSON.parse("{{context|escapejs}}");
-
-
-function getNewSeries(baseval, yrange) {
-    var newDate = baseval + TICKINTERVAL;
-    lastDate = newDate
-    for (var i = 0; i < data.length - 10; i++) {
-        data[i].x = newDate - XAXISRANGE - TICKINTERVAL
-        data[i].y = 0
-    }
-    data.push({
-        x: newDate,
-        y: Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min
-    })
-}
 var options = {
     series: [{
         data: data.slice()
@@ -110,7 +62,7 @@ var options = {
         curve: 'smooth'
     },
     title: {
-        text: 'Dynamic Updating Chart',
+        text: 'BTC price',
         align: 'left'
     },
     markers: {
@@ -121,7 +73,8 @@ var options = {
         range: XAXISRANGE,
     },
     yaxis: {
-        max: 100
+        forceNiceScale: true,
+        floating: true
     },
     legend: {
         show: false
@@ -131,14 +84,35 @@ var options = {
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 
+let url = `ws://${window.location.host}/ws/socket-server/`
 
-// window.setInterval(function() {
-//     getNewSeries(lastDate, {
-//         min: 10,
-//         max: 90
-//     })
+const dataSocket = new WebSocket(url)
+dataSocket.onopen = function(e) {
+    console.log('connection establish')
 
-//     chart.updateSeries([{
-//         data: data
-//     }])
-// }, 1000)
+}
+dataSocket.onmessage = function(e) {
+    // console.log(e["data"])
+    var recData = JSON.parse(e.data);
+    console.log(recData['value'])
+    baseval = lastDate
+    var newDate = baseval + TICKINTERVAL;
+    lastDate = newDate
+    for (var i = 0; i < data.length - 10; i++) {
+        data[i].x = newDate - XAXISRANGE - TICKINTERVAL
+        data[i].y = 0
+    }
+    data.push({
+        x: newDate,
+        y: Math.floor(recData['value'])
+    })
+
+    chart.updateSeries([{
+        data: data
+    }])
+
+}
+dataSocket.onclose = function(e) {
+    console.log('connection close')
+
+}
