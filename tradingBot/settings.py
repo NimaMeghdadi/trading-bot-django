@@ -45,9 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'playground',
-    'store',
-    'tags',
-    'likes',
     
 ]
 WSGI_APPLICATION = 'tradingBot.wsgi.application'
