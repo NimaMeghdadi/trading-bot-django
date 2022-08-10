@@ -19,12 +19,11 @@ def run(orderbooks, lock):
                 # extract and print data
                 for key, value in orderbooks.items():
                     if key != 'last_update':
-                        # bid = value['bids'][0][0]
                         price = value['lastPrice']
                         print(f"{key}  Price: {price}")
                 print()
-                pp=json.dumps({'indexName':'stock1'
-                ,'value':price})
+                pp=json.dumps({'price_huobi':price
+                ,'price_binance':orderbooks['Binance']['lastPrice']})
                 ws.send(pp)
 
                 # set local last_update to last_update

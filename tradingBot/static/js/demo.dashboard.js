@@ -25,21 +25,26 @@ function(t) {
 }(window.jQuery);
 
 var lastDate = 0;
-var data = []
+var data_binance = []
+var data_huobi = []
 var TICKINTERVAL = 86400000
-let XAXISRANGE = 777600000
-    // var data = JSON.parse("{{data|escapejs}}");
-    // const dataa = JSON.parse(document.getElementById('data').textContent);
-    // console.log(dataa)
-
+let XAXISRANGE = 977600000 //777600000
 
 var options = {
     series: [{
-        data: data.slice()
-    }],
+            name: "binance",
+            data: data_binance.slice()
+        },
+        {
+
+            name: "huobi",
+            data: data_huobi.slice()
+        }
+    ],
     chart: {
         id: 'realtime',
         height: 350,
+        width: 800,
         type: 'line',
         animations: {
             enabled: true,
@@ -69,16 +74,30 @@ var options = {
         size: 0
     },
     xaxis: {
+        title: {
+            text: 'Time'
+        },
         type: 'datetime',
         range: XAXISRANGE,
+        labels: {
+            // formatter: function(value, timestamp) {
+            //     return new Date(timestamp) // The formatter function overrides format property
+            // },
+            format: 'mm/ss'
+        }
+
     },
     yaxis: {
+        title: {
+            text: 'Price ($)'
+        },
         forceNiceScale: true,
-        floating: true
+        decimalsInFloat: 6
     },
     legend: {
         show: false
     },
+    colors: ['#77B6EA', '#545454']
 };
 
 var chart = new ApexCharts(document.querySelector("#chart"), options);
@@ -92,25 +111,34 @@ dataSocket.onopen = function(e) {
 
 }
 dataSocket.onmessage = function(e) {
-    // console.log(e["data"])
     var recData = JSON.parse(e.data);
-    console.log(recData['value'])
+    const myObj = {
+        binance: recData['price_binance'],
+        huobi: recData['price_huobi']
+    };
+    console.log(myObj);
     baseval = lastDate
     var newDate = baseval + TICKINTERVAL;
     lastDate = newDate
-    for (var i = 0; i < data.length - 10; i++) {
-        data[i].x = newDate - XAXISRANGE - TICKINTERVAL
-        data[i].y = 0
-    }
-    data.push({
+    data_binance.push({
         x: newDate,
-        y: Math.floor(recData['value'])
+        y: recData['price_binance']
+    })
+    data_huobi.push({
+        x: newDate,
+        y: recData['price_huobi']
     })
 
     chart.updateSeries([{
-        data: data
-    }])
+            name: 'binance',
+            data: data_binance
+        },
+        {
+            name: 'huobi',
+            data: data_huobi
 
+        }
+    ])
 }
 dataSocket.onclose = function(e) {
     console.log('connection close')
