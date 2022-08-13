@@ -37,3 +37,6 @@ class Huobi(Client):
         super().on_open()
         params = {"sub": "market.btcusdt.ticker"}
         self.ws.send(dumps(params))
+        
+    def on_close(ws, close_status_code, close_msg):
+        print("### closed Huobi connection ###")

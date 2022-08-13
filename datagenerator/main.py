@@ -22,12 +22,14 @@ def run(orderbooks, lock):
                         price = value['lastPrice']
                         print(f"{key}  Price: {price}")
                 print()
-                pp=json.dumps({'price_huobi':price
-                ,'price_binance':orderbooks['Binance']['lastPrice']})
+                pp=json.dumps({'price_huobi':orderbooks['Huobi']['lastPrice'],
+                            'price_binance':orderbooks['Binance']['lastPrice'],
+                            # 'last_update':datetime.now()
+                            })
+                # print (pp)
                 ws.send(pp)
 
                 # set local last_update to last_update
-                # current_time = orderbooks['last_update']
             time.sleep(1)
         except Exception:
             pass

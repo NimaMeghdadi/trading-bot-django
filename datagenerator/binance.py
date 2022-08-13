@@ -34,4 +34,4 @@ class Binance(Client):
         print(error)
 
     def on_close(ws, close_status_code, close_msg):
-        print("### closed ###")
+        print("### closed Binance connection ###")
