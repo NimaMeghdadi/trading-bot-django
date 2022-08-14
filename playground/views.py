@@ -11,8 +11,8 @@ from json import dumps
     
 #     return render(request,'hello.html', {'name':'Nima' , 'products' : list(queryset)})
 
-def add(request):
-    return render(request,'add/add.html')
+# def add(request):
+#     return render(request,'add/add.html')
 
 def index(request):
     dataDictionary = {
@@ -26,7 +26,7 @@ def index(request):
     }
     # dump data
     dataJSON = dumps(dataDictionary)
-    return render(request,'add/index.html' , context={"data":dataJSON})
+    return render(request,'dashboard/index.html' , context={"data":dataJSON})
 
 # def lobby(request):
 #     data = 1

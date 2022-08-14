@@ -5,16 +5,9 @@ import threading
 import time
 import websocket,json,random
 
-# print top bid/ask for each exchange
-# run forever
 def run(orderbooks, lock):
-    # local last_update
-    current_time = datetime.now()
-
     while True:
         try:
-            # check for new update
-            # if orderbooks['last_update'] != current_time:
             with lock:
                 # extract and print data
                 for key, value in orderbooks.items():
@@ -24,12 +17,8 @@ def run(orderbooks, lock):
                 print()
                 pp=json.dumps({'price_huobi':orderbooks['Huobi']['lastPrice'],
                             'price_binance':orderbooks['Binance']['lastPrice'],
-                            # 'last_update':datetime.now()
                             })
-                # print (pp)
                 ws.send(pp)
-
-                # set local last_update to last_update
             time.sleep(1)
         except Exception:
             pass
