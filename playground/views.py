@@ -26,7 +26,7 @@ def index(request):
     }
     # dump data
     dataJSON = dumps(dataDictionary)
-    return render(request,'dashboard/index.html' , context={"data":dataJSON})
+    return render(request,'dashboard/index1.html' , context={"data":dataJSON})
 
 # def lobby(request):
 #     data = 1

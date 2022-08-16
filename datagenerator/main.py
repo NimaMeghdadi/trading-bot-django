@@ -1,9 +1,8 @@
 from binance import Binance
 from huobi import Huobi
-from datetime import datetime
 import threading
 import time
-import websocket,json,random
+import websocket,json
 
 def run(orderbooks, lock):
     while True:
