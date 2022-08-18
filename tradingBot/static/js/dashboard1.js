@@ -24,13 +24,20 @@
 //     t(document).ready(function(e) { t.Dashboard.init() })
 // }(window.jQuery);
 
+
+
 var lastDate = 0;
+var arr = new Array(5);
+var arr = new Array(5);
+var arr = new Array(5);
+var arr = new Array(5);
 var data_binance = []
 var data_huobi = []
 var last_update = []
 var diff = []
 var TICKINTERVAL = 86400000
 let XAXISRANGE = 77760 //777600000
+var sell_buy_ok = 0.0002
 
 var diff_chart = {
     series: [{
@@ -44,21 +51,29 @@ var diff_chart = {
         type: 'bar',
         height: 350,
         animations: {
-            enabled: true,
-            easing: 'linear',
+            enabled: false,
+            // easing: 'linear',
         },
     },
     plotOptions: {
         bar: {
             colors: {
                 ranges: [{
-                    from: -100,
-                    to: -46,
-                    color: '#F15B46'
+                    from: 0,
+                    to: sell_buy_ok,
+                    color: '#feeb19'
                 }, {
-                    from: -45,
+                    from: sell_buy_ok,
+                    to: 1,
+                    color: '#fe4719'
+                }, {
+                    from: -sell_buy_ok,
                     to: 0,
-                    color: '#FEB019'
+                    color: '#198cfe'
+                }, {
+                    from: -1,
+                    to: -sell_buy_ok,
+                    color: '#cc19fe'
                 }]
             },
             columnWidth: '80%',
@@ -67,18 +82,29 @@ var diff_chart = {
     dataLabels: {
         enabled: false,
     },
+    tooltip: {
+        enabled: true,
+        x: {
+            show: true,
+            format: 'hh:mm:ss',
+            formatter: undefined,
+        },
+        duration: 2000,
+
+    },
     yaxis: {
         title: {
-            text: 'Growth',
+            text: 'Diffrence Percentage',
         },
+        tickAmount: 0,
         labels: {
             formatter: function(y) {
                 return y.toFixed(6) + "%";
-            }
-        }
+            },
+        },
     },
     xaxis: {
-        type: 'datetime',
+        type: "datetime",
         title: {
             text: 'Time'
         },
@@ -86,17 +112,13 @@ var diff_chart = {
         labels: {
             format: "hh:mm:ss",
             datetimeUTC: false,
-        },
-        labels: {
             rotate: -90
+        },
+        tooltip: {
+            enabled: true
         }
     }
 };
-
-var chart_diff = new ApexCharts(document.querySelector("#diff_chart"), diff_chart);
-
-
-
 
 var options = {
     series: [{
@@ -114,7 +136,7 @@ var options = {
         width: '100%',
         type: 'line',
         animations: {
-            enabled: true,
+            enabled: false,
             easing: 'linear',
         },
         toolbar: {
@@ -146,7 +168,7 @@ var options = {
 
     },
     xaxis: {
-        type: 'datetime',
+        type: "datetime",
         title: {
             text: 'Time'
         },
@@ -154,10 +176,8 @@ var options = {
         labels: {
             format: "hh:mm:ss",
             datetimeUTC: false,
-        },
-        labels: {
             rotate: -90
-        }
+        },
 
     },
     yaxis: {
@@ -165,7 +185,7 @@ var options = {
             text: 'Price ($)'
         },
         forceNiceScale: true,
-        decimalsInFloat: 6
+        decimalsInFloat: 8
     },
     legend: {
         show: false
@@ -176,6 +196,7 @@ var options = {
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 
+var chart_diff = new ApexCharts(document.querySelector("#diff_chart"), diff_chart);
 chart_diff.render();
 
 
@@ -192,11 +213,14 @@ dataSocket.onmessage = function(e) {
         binance: recData['price_binance'],
         huobi: recData['price_huobi'],
     };
-    var num2 = parseFloat(recData['price_binance']).toFixed(2)
-        // console.log(typeof recData['price_binance'])
+    // var num2 = parseFloat(recData['price_binance']).toFixed(2)
+    // console.log(typeof recData['price_binance'])
 
     document.getElementById("huobi_price").innerHTML = recData['price_huobi'];
-    document.getElementById("binance_price").innerHTML = num2;
+    document.getElementById("binance_price").innerHTML = parseFloat(recData['price_binance']).toFixed(2);
+    document.getElementById("difference").innerHTML = diffrence(recData['price_huobi'], recData['price_binance']);
+
+
     // console.log(myObj);
 
     data_binance.push({
@@ -226,6 +250,13 @@ dataSocket.onmessage = function(e) {
         name: 'DiffPercent',
         data: diff
     }, ])
+
+    if (data_binance.length > 85) {
+        diff.shift()
+        data_binance.shift()
+        data_huobi.shift()
+
+    }
 }
 
 function diffrence(huobi_price, binance_price) {

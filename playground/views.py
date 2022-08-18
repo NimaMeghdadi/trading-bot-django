@@ -28,6 +28,11 @@ def index(request):
     dataJSON = dumps(dataDictionary)
     return render(request,'dashboard/index1.html' , context={"data":dataJSON})
 
+def login(request):
+    # dump data
+    # dataJSON = dumps(dataDictionary)
+    return render(request,'account/login.html' )
+
 # def lobby(request):
 #     data = 1
 #     context = {'data':data }
