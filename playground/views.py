@@ -11,29 +11,11 @@ from json import dumps
     
 #     return render(request,'hello.html', {'name':'Nima' , 'products' : list(queryset)})
 
-# def add(request):
-#     return render(request,'add/add.html')
-
 def index(request):
-    dataDictionary = {
-        'hello': 'World',
-        'geeks': 'forgeeks',
-        'ABC': 123,
-        456: 'abc',
-        14000605: 1,
-        'list': ['geeks', 4, 'geeks'],
-        'dictionary': {'you': 'can', 'send': 'anything', 3: 1}
-    }
-    # dump data
-    dataJSON = dumps(dataDictionary)
-    return render(request,'dashboard/index1.html' , context={"data":dataJSON})
+    return render(request,'dashboard/index1.html')
 
 def login(request):
-    # dump data
-    # dataJSON = dumps(dataDictionary)
     return render(request,'account/login.html' )
 
-# def lobby(request):
-#     data = 1
-#     context = {'data':data }
-#     return render(request,'playground/lobby.html' , context)
+def signup(request):
+    return render(request,'account/signup.html')
