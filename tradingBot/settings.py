@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework'
     'playground',
     
 ]
@@ -101,7 +102,7 @@ CHANNEL_LAYERS ={
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tradingbot',
+        'NAME': 'tradingbotnima',
         'HOST' :'localhost' ,
         'USER':'root',
         'PASSWORD': '1'

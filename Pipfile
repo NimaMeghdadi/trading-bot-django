@@ -12,6 +12,7 @@ name = "mypypi"
 django = "*"
 mysqlclient = {path = "./mysqlclient-2.1.1-cp39-cp39-win_amd64.whl"}
 websocket = "*"
+djangorestframework = {path = "./djangorestframework-3.13.1-py3-none-any.whl"}
 
 [dev-packages]
 
