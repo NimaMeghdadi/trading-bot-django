@@ -7,6 +7,8 @@ urlpatterns = [
     path('login/' , views.login , name= 'login'),
     path('signup/' , views.signup , name= 'signup'),
     path('' , views.index , name= "index"),
+    path('users/' , views.users , name= "users"),
+    path('users/<int:id>/' , views.users_detail , name= "users_detail"),
     # path('chat' , views.lobby , name= "lobby")
     # path('' , views.lobby , name= "lobby")
     

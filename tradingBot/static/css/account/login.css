@@ -4,15 +4,47 @@
     box-sizing: border-box
 }
 
-.login-form {
+.container{
+    height: 100vh;
+}
+
+.login-container{
+    width: 100%;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
-.form-btn {
-    width: 100%;
-    background-color: #0057a8;
-    color: white;
-    border-radius: 10px;
+.form h3{
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width:992px) {
+    .login-illustrator{
+        width: 400px;
+        height: 300px;
+    }
+    .login-container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .login-illustrator{
+        width: 250px;
+        height: 200px;
+    }
 }

@@ -13,9 +13,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from ast import Expression
 from pathlib import Path
 import os
-from flask import Flask
-import app
-from django import apps
 
 # from  tradingBot import asgi
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,14 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
     'playground',
     
 ]
 WSGI_APPLICATION = 'tradingBot.wsgi.application'
 ASGI_APPLICATION = 'tradingBot.asgi.application'
-# ASGI_APPLICATION = 'tradingBot.asgi.application'
-# ASGI_APPLICATION = 'tradingBot.asgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
