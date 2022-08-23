@@ -1,12 +1,18 @@
-function loginTry(e) {
+function loginTryy(e) {
     e.preventDefault();
     console.log("nima fa")
 }
-const request = new XMLHttpRequest();
-const url = 'http://localhost:5000/movies';
-request.open("GET", url);
-request.send();
+var email = document.getElementById("email")
 
-request.onload = (e) => {
-    alert(request.response);
+function loginTry(e) {
+    e.preventDefault();
+    const request = new XMLHttpRequest();
+    console.log(email.value)
+    const url = 'http://127.0.0.1:8000/users/' + email.value + '';
+    request.open("GET", url);
+    request.send();
+
+    request.onload = (e) => {
+        alert(request.response);
+    }
 }
