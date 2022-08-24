@@ -34,9 +34,9 @@ def users(request):
 
     
 @api_view(['GET','POST'])
-def user_try(request , try_email):
+def user_try(request , try_email,try_password):
     if request.method == 'GET':
-        user = get_object_or_404(Users, email=try_email)
+        user = get_object_or_404(Users, email=try_email , password = try_password)
         serializer = UserSerializer(user)
         return Response(serializer.data)
     elif request.method == 'POST':
@@ -45,17 +45,3 @@ def user_try(request , try_email):
         serializer.save()
         print(serializer.validated_data)
         return Response('ok')
-    # user = Users.objects.get(pk=id)
-    # if request.method == 'GET':
-    
-    # user = get_object_or_404(Users, email=id)
-    # serializer = UserSerializer(user)
-    # return Response(serializer.data)
-
-    # elif request.method == 'POST':
-    #     serializer = UserSerializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.validated_data
-    #     return Response('ok')
-        # else:
-        #     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
