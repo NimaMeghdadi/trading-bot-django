@@ -1,0 +1,10 @@
+.buy_btn {
+    background-color: green;
+    display: block;
+    bottom: 20px;
+    right: 20px;
+    position: fixed;
+    border: none;
+    padding: 1rem;
+    border-radius: 15px;
+}

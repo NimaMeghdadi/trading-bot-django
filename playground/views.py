@@ -9,6 +9,7 @@ from rest_framework import status
 from .models import Users
 from .serializers import UserSerializer
 from .serializers import UserSerializerSignup
+from .serializers import UserSerializerexchange
 from django.shortcuts import get_object_or_404
 
 # def say_hello(request):
@@ -27,7 +28,6 @@ def signup(request):
 
 @api_view()
 def users(request):
-
     user = Users.objects.all()
     serializer = UserSerializer(user , many = True , context={'request':request})
     return Response(serializer.data)
@@ -45,3 +45,9 @@ def user_try(request , try_email,try_password):
         serializer.save()
         print(serializer.validated_data)
         return Response('ok')
+
+# @api_view(['GET','POST'])
+# def exchange(request,kind,percent,user_email,user_password,binance_price,huobi_price):
+#     if request.method == 'POST':
+#         user = get_object_or_404(Users, email=user_email , password = user_password)
+#         serializer = UserSerializerexchange(user)

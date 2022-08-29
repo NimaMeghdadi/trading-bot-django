@@ -7,8 +7,8 @@ from playground.models import Users
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ['id','email','first_name','last_name','money','bitcoin']
-        # fields = '__all__'
+        # fields = ['id','email','first_name','last_name','money','bitcoin']
+        fields = '__all__'
         
     # passvalid = serializers.SerializerMethodField(
     #     method_name='nima'
@@ -31,3 +31,8 @@ class UserSerializerSignup(serializers.ModelSerializer):
     class Meta:
         model = Users
         fields = ['email','password']
+        
+class UserSerializerexchange(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        fields = ['binance_bitcoin','binance_money','huobi_bitcoin','huobi_money']

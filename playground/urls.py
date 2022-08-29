@@ -9,6 +9,7 @@ urlpatterns = [
     path('' , views.index , name= "index"),
     # path('users/' , views.user_try , name= "users"),
     path('users/<try_email>/<try_password>' , views.user_try , name= "users_detail"),
+    # path('exchange/<kind>/<percent>/<user_email>/<user_password>/<binance_price>/<huobi_price>' , views.exchange , name= "exchange"),
     # path('chat' , views.lobby , name= "lobby")
     # path('' , views.lobby , name= "lobby")
     

@@ -39,6 +39,42 @@ var TICKINTERVAL = 86400000
 let XAXISRANGE = 77760 //777600000
 var sell_buy_ok = 0.0002
 
+
+// var email = document.getElementById("email"),
+//     password = document.getElementById("password")
+// var http = require('http');
+// var email = localStorage.getItem("emailLocalStorage");
+var resp = localStorage.getItem("person_info");
+resp = JSON.parse(resp)
+
+console.log(resp)
+    // var empty = { "id": 0, "email": ' ', "first_name": ' ', "last_name": '', "money": 0, "bitcoin": 0 }
+loginDetail()
+
+
+
+
+function loginDetail() {
+    if (resp) {
+        console.log(resp);
+        document.getElementById("name").innerHTML = resp.first_name + " " + resp.last_name;
+        document.getElementById("email").innerHTML = resp.email;
+
+        document.getElementById("login_true").style.display = "block"
+    } else {
+        document.getElementById("login_false").style.display = "block"
+    }
+
+    // localStorage.setItem("respLocalStorage", empty);
+}
+
+function eraseLoginInfo() {
+    window.localStorage.removeItem('person_info');
+    console.log("local: " + localStorage.getItem("person_info"));
+}
+
+
+
 var diff_chart = {
     series: [{
         name: 'DiffPercent',
@@ -215,10 +251,24 @@ dataSocket.onmessage = function(e) {
     };
     // var num2 = parseFloat(recData['price_binance']).toFixed(2)
     // console.log(typeof recData['price_binance'])
-
     document.getElementById("huobi_price").innerHTML = recData['price_huobi'];
+    // if (recData["price_huobi"] > 0) {
+    //     document.getElementById("huobi_price").style.color = "green"
+    // } else {
+    //     document.getElementById("huobi_price").style.color = "red"
+    // }
     document.getElementById("binance_price").innerHTML = parseFloat(recData['price_binance']).toFixed(2);
+    // if (recData["price_binance"] > 0) {
+    //     document.getElementById("binance_price").style.color = "green"
+    // } else {
+    //     document.getElementById("binance_price").style.color = "red"
+    // }
     document.getElementById("difference").innerHTML = diffrence(recData['price_huobi'], recData['price_binance']);
+    if (diffrence(recData['price_huobi'], recData['price_binance']) > 0) {
+        document.getElementById("difference").style.color = "#cad104"
+    } else {
+        document.getElementById("difference").style.color = "#02acd6"
+    }
 
 
     // console.log(myObj);
