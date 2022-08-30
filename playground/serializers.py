@@ -32,7 +32,7 @@ class UserSerializerSignup(serializers.ModelSerializer):
         model = Users
         fields = ['email','password']
         
-class UserSerializerexchange(serializers.ModelSerializer):
-    class Meta:
-        model = Users
-        fields = ['binance_bitcoin','binance_money','huobi_bitcoin','huobi_money']
+# class UserSerializerexchange(serializers.ModelSerializer):
+#     class Meta:
+#         model = Users
+#         fields = ['binance_bitcoin','binance_money','huobi_bitcoin','huobi_money']

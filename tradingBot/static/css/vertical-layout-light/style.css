@@ -18823,7 +18823,7 @@ fieldset:disabled .swal2-modal .swal2-buttonswrapper .swal2-styled,
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 10px) {
     .float-lg-start {
         float: left !important;
     }
@@ -31255,7 +31255,7 @@ div.tagsinput span.tag a {
     margin-left: 1.25rem;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 10px) {
     .navbar .navbar-menu-wrapper .navbar-nav .nav-item {
         margin-left: 10px;
         margin-right: 0px;
@@ -31571,7 +31571,7 @@ div.tagsinput span.tag a {
     vertical-align: middle;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 10px) {
     .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown {
         position: static;
     }

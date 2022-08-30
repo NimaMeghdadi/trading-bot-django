@@ -38,6 +38,8 @@ var diff = []
 var TICKINTERVAL = 86400000
 let XAXISRANGE = 77760 //777600000
 var sell_buy_ok = 0.0002
+var binance_price
+var huobi_price
 
 
 // var email = document.getElementById("email"),
@@ -52,6 +54,33 @@ console.log(resp)
 loginDetail()
 
 
+function exchange() {
+    // e.preventDefault();
+    let formData = new FormData(document.forms.person);
+
+    minn = Math.min([(resp.binance_bitcoin * binance_price), resp.huobi_money])
+    var mn = (minn * 10 / 100) / (resp.binance_bitcoin * binance_price),
+        mm = mn * resp.binance_bitcoin,
+        new_binance_bitcoin = resp.binance_bitcoin - mm,
+        new_binance_money = resp.binance_money + 99.9 * (resp.binance_bitcoin * binance_price),
+
+        new_huobi_money = resp.huobi_money - mn,
+        new_huobi_bitcoin = resp.huobi_bitcoin + 99.8(mm / huobi_price)
+
+
+    formData.append("huobi_money", new_huobi_money);
+    formData.append("huobi_bitcoin", new_huobi_bitcoin);
+    formData.append("binance_money", new_binance_money);
+    formData.append("binance_bitcoin", new_binance_bitcoin);
+
+    // send it out
+    let xhr = new XMLHttpRequest();
+    url = 'http://127.0.0.1:8000/exchange/' + resp.email + '/' + resp.password + '';
+    xhr.open("PUT", url);
+    xhr.send(formData);
+
+    xhr.onload = () => alert(xhr.response);
+}
 
 
 function loginDetail() {
@@ -59,7 +88,6 @@ function loginDetail() {
         console.log(resp);
         document.getElementById("name").innerHTML = resp.first_name + " " + resp.last_name;
         document.getElementById("email").innerHTML = resp.email;
-
         document.getElementById("login_true").style.display = "block"
     } else {
         document.getElementById("login_false").style.display = "block"
@@ -243,6 +271,7 @@ dataSocket.onopen = function(e) {
     console.log('connection establish')
 
 }
+
 dataSocket.onmessage = function(e) {
     var recData = JSON.parse(e.data);
     const myObj = {
@@ -252,17 +281,19 @@ dataSocket.onmessage = function(e) {
     // var num2 = parseFloat(recData['price_binance']).toFixed(2)
     // console.log(typeof recData['price_binance'])
     document.getElementById("huobi_price").innerHTML = recData['price_huobi'];
-    // if (recData["price_huobi"] > 0) {
-    //     document.getElementById("huobi_price").style.color = "green"
-    // } else {
-    //     document.getElementById("huobi_price").style.color = "red"
-    // }
+    huobi_price = recData['price_huobi']
+        // if (recData["price_huobi"] > 0) {
+        //     document.getElementById("huobi_price").style.color = "green"
+        // } else {
+        //     document.getElementById("huobi_price").style.color = "red"
+        // }
     document.getElementById("binance_price").innerHTML = parseFloat(recData['price_binance']).toFixed(2);
-    // if (recData["price_binance"] > 0) {
-    //     document.getElementById("binance_price").style.color = "green"
-    // } else {
-    //     document.getElementById("binance_price").style.color = "red"
-    // }
+    binance_price = parseFloat(recData['price_binance']).toFixed(2)
+        // if (recData["price_binance"] > 0) {
+        //     document.getElementById("binance_price").style.color = "green"
+        // } else {
+        //     document.getElementById("binance_price").style.color = "red"
+        // }
     document.getElementById("difference").innerHTML = diffrence(recData['price_huobi'], recData['price_binance']);
     if (diffrence(recData['price_huobi'], recData['price_binance']) > 0) {
         document.getElementById("difference").style.color = "#cad104"
@@ -311,4 +342,29 @@ dataSocket.onmessage = function(e) {
 
 function diffrence(huobi_price, binance_price) {
     return ((binance_price / huobi_price) - 1).toFixed(6)
+}
+
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("asset");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }

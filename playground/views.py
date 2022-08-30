@@ -1,5 +1,6 @@
 import email
 from multiprocessing import context
+from urllib import response
 from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -9,7 +10,7 @@ from rest_framework import status
 from .models import Users
 from .serializers import UserSerializer
 from .serializers import UserSerializerSignup
-from .serializers import UserSerializerexchange
+# from .serializers import UserSerializerexchange
 from django.shortcuts import get_object_or_404
 
 # def say_hello(request):
@@ -51,3 +52,16 @@ def user_try(request , try_email,try_password):
 #     if request.method == 'POST':
 #         user = get_object_or_404(Users, email=user_email , password = user_password)
 #         serializer = UserSerializerexchange(user)
+
+@api_view(['GET','PUT'])
+def exchange(request,user_email,user_password):
+    user = get_object_or_404(Users, email=user_email , password = user_password)
+    if request.method == 'GET':
+        serializer = UserSerializer(user)
+    elif request.method == 'PUT':
+        print(request.data)
+        serializer = UserSerializer(user,data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+

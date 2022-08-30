@@ -18,7 +18,6 @@ function loginTryy(e) {
 function loginTry(e) {
     e.preventDefault();
     let formData = new FormData(document.forms.person);
-
     console.log(password.value)
     console.log(email.value)
     formData.append("email", email.value);

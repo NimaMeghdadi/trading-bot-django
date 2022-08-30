@@ -54,8 +54,8 @@
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
                 <div class="me-3">
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
-            <span class="icon-menu"></span>
-          </button>
+                        <span class="icon-menu"></span>
+                    </button>
                 </div>
                 <div>
                     <a class="navbar-brand brand-logo" href="index.html">
@@ -111,11 +111,20 @@
                                 <p class="mb-1 mt-3 font-weight-semibold" id="name"></p>
                                 <p class="fw-light text-muted mb-0" id="email"></p>
                             </div>
-                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
-                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Asset</a>
-                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
-                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
-                            <a class="dropdown-item nav-link" onClick="javascript:var ret = eraseLoginInfo(event); return ret;" href="{% url 'login' %}"><i class="dropdown-item-icon mdi mdi-power text-primary me-2 " ></i>Sign Out</a>
+                            <a class="dropdown-item"><i
+                                    class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile
+                                <span class="badge badge-pill badge-danger">1</span></a>
+                            <a class="dropdown-item" id="asset"><i
+                                    class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i>
+                                Asset</a>
+                            <a class="dropdown-item"><i
+                                    class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i>
+                                Activity</a>
+                            <a class="dropdown-item"><i
+                                    class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i>
+                                FAQ</a>
+                            <a class="dropdown-item nav-link" onClick="javascript:var ret = eraseLoginInfo(event); return ret;" href="{% url 'login' %}"><i
+                                    class="dropdown-item-icon mdi mdi-power text-primary me-2 "></i>Sign Out</a>
                         </div>
                     </li>
                     <a id="login_false" style="display: none !important;" class="nav-link" href="{% url 'login' %}">
@@ -125,11 +134,22 @@
                     </a>
 
                 </ul>
-                <button class="nav-link navbar-toggler navbar-toggler-right d-lg-none align-self-center" href="{% url 'login' %}" type="button" data-bs-toggle="offcanvas">
-          <span class="mdi mdi-menu"></span>
-        </button>
+                <!-- <button class="nav-link navbar-toggler navbar-toggler-right d-lg-none align-self-center" href="{% url 'login' %}" type="button" data-bs-toggle="offcanvas"> -->
+                <!-- <span class="mdi mdi-menu"></span> -->
+                <!-- </button> -->
             </div>
         </nav>
+
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>assets</p>
+            </div>
+
+        </div>
+
         <!-- partial -->
 
         <div class="container-fluid page-body-wrapper">
@@ -180,45 +200,45 @@
                                 <li>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Team review meeting at 3.00 PM
-                    </label>
+                                            <input class="checkbox" type="checkbox">
+                                            Team review meeting at 3.00 PM
+                                        </label>
                                     </div>
                                     <i class="remove ti-close"></i>
                                 </li>
                                 <li>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Prepare for presentation
-                    </label>
+                                            <input class="checkbox" type="checkbox">
+                                            Prepare for presentation
+                                        </label>
                                     </div>
                                     <i class="remove ti-close"></i>
                                 </li>
                                 <li>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Resolve all the low priority tickets due today
-                    </label>
+                                            <input class="checkbox" type="checkbox">
+                                            Resolve all the low priority tickets due today
+                                        </label>
                                     </div>
                                     <i class="remove ti-close"></i>
                                 </li>
                                 <li class="completed">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                      <input class="checkbox" type="checkbox" checked>
-                      Schedule meeting for next week
-                    </label>
+                                            <input class="checkbox" type="checkbox" checked>
+                                            Schedule meeting for next week
+                                        </label>
                                     </div>
                                     <i class="remove ti-close"></i>
                                 </li>
                                 <li class="completed">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                      <input class="checkbox" type="checkbox" checked>
-                      Project review
-                    </label>
+                                            <input class="checkbox" type="checkbox" checked>
+                                            Project review
+                                        </label>
                                     </div>
                                     <i class="remove ti-close"></i>
                                 </li>
@@ -246,7 +266,8 @@
                     <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
                         <div class="d-flex align-items-center justify-content-between border-bottom">
                             <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-                            <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 fw-normal">See All</small>
+                            <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 fw-normal">See
+                                All</small>
                         </div>
                         <ul class="chat-list">
                             <li class="list active">
@@ -325,12 +346,13 @@
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Bitcoins</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">SHIBA INU</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">SHIBA
+                                        INU</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Ethereum</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item nav-category">Forms and Datas</li>
+                    <!-- <li class="nav-item nav-category">Forms and Datas</li>
                     <li class="nav-item">
 
                         <div class="collapse" id="form-elements">
@@ -338,8 +360,8 @@
                                 <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
                             </ul>
                         </div>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
                             <i class="menu-icon mdi mdi-table"></i>
                             <span class="menu-title">Tables</span>
@@ -362,7 +384,7 @@
                                 <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
                             </ul>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="nav-item nav-category">pages</li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
@@ -419,41 +441,26 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="statistics-details d-flex align-items-center justify-content-between">
-                                                    <div>
+                                                    <div class="prices">
                                                         <p class="statistics-title">Huobi Price</p>
                                                         <h3 id="huobi_price" class="rate-percentage posneg">waiting</h3>
                                                         <!-- <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p> -->
                                                     </div>
-                                                    <div>
+                                                    <div class="prices">
                                                         <p class="statistics-title">Binance Price</p>
                                                         <h3 id="binance_price" class="rate-percentage">waiting</h3>
                                                         <!-- <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p> -->
                                                     </div>
-                                                    <div>
+                                                    <div class="prices">
                                                         <p class="statistics-title">Difference </p>
                                                         <h3 id="difference" class="rate-percentage">waiting</h3>
                                                         <!-- <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p> -->
-                                                    </div>
-                                                    <div class="d-none d-md-block">
-                                                        <p class="statistics-title">Avg. Time on Site</p>
-                                                        <h3 class="rate-percentage">2m:35s</h3>
-                                                        <!-- <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p> -->
-                                                    </div>
-                                                    <div class="d-none d-md-block">
-                                                        <p class="statistics-title">New Sessions</p>
-                                                        <h3 class="rate-percentage">68.8</h3>
-                                                        <!-- <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p> -->
-                                                    </div>
-                                                    <div class="d-none d-md-block">
-                                                        <p class="statistics-title">Avg. Time on Site</p>
-                                                        <h3 class="rate-percentage">2m:35s</h3>
-                                                        <!-- <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p> -->
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-8 d-flex flex-column">
+                                            <div class="col-lg-12 d-flex flex-column">
                                                 <div class="row flex-grow">
                                                     <div class="col-12 col-lg-4 col-lg-12 grid-margin stretch-card">
                                                         <div class="card card-rounded">
@@ -528,7 +535,7 @@
                                             </div> -->
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-8 d-flex flex-column">
+                                            <div class="col-lg-12 d-flex flex-column">
                                                 <div class="row flex-grow">
                                                     <div class="col-12 grid-margin stretch-card">
                                                         <div class="card card-rounded">
@@ -1141,7 +1148,8 @@
     <footer class="footer">
         <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <!-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span> -->
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights
+                reserved.</span>
         </div>
     </footer>
     <!-- partial -->
