@@ -37,7 +37,7 @@ var last_update = []
 var diff = []
 var TICKINTERVAL = 86400000
 let XAXISRANGE = 77760 //777600000
-var sell_buy_ok = 0.0002
+var sell_buy_ok = 0.0001
 var binance_price
 var huobi_price
 
@@ -55,31 +55,46 @@ loginDetail()
 
 
 function exchange() {
-    // e.preventDefault();
-    let formData = new FormData(document.forms.person);
+    if (resp) {
+        console.log("going to buy");
+        // e.preventDefault();
+        let formData = new FormData(document.forms.person);
+        var minn = Math.min.apply(null, [(resp.binance_bitcoin * binance_price), resp.huobi_money])
+        var mn = (minn * 10 / 100) / (resp.binance_bitcoin * binance_price)
+        var mm = mn * resp.binance_bitcoin
+        var new_binance_bitcoin = resp.binance_bitcoin - mm
+        var new_binance_money = resp.binance_money + 99.9 * (resp.binance_bitcoin * binance_price)
+        var new_huobi_money = resp.huobi_money - mn
+        var new_huobi_bitcoin = resp.huobi_bitcoin + 99.8 * (mm / huobi_price)
 
-    minn = Math.min([(resp.binance_bitcoin * binance_price), resp.huobi_money])
-    var mn = (minn * 10 / 100) / (resp.binance_bitcoin * binance_price),
-        mm = mn * resp.binance_bitcoin,
-        new_binance_bitcoin = resp.binance_bitcoin - mm,
-        new_binance_money = resp.binance_money + 99.9 * (resp.binance_bitcoin * binance_price),
+        new_huobi_money = new_huobi_money.toFixed(2)
+        new_huobi_bitcoin = new_huobi_bitcoin.toFixed(6)
+        new_binance_money = new_binance_money.toFixed(2)
+        new_binance_bitcoin = new_binance_bitcoin.toFixed(6)
+        console.log(new_huobi_money);
+        console.log(new_huobi_bitcoin);
+        console.log("bin " + new_binance_money);
+        console.log(new_binance_bitcoin);
+        // console.log("new_binance_bitcoin: " + new_binance_bitcoin);
 
-        new_huobi_money = resp.huobi_money - mn,
-        new_huobi_bitcoin = resp.huobi_bitcoin + 99.8(mm / huobi_price)
 
+        formData.append("huobi_money", new_huobi_money);
+        formData.append("huobi_bitcoin", new_huobi_bitcoin);
+        formData.append("binance_money", new_binance_money);
+        formData.append("binance_bitcoin", new_binance_bitcoin);
 
-    formData.append("huobi_money", new_huobi_money);
-    formData.append("huobi_bitcoin", new_huobi_bitcoin);
-    formData.append("binance_money", new_binance_money);
-    formData.append("binance_bitcoin", new_binance_bitcoin);
+        console.log(formData);
+        // send it out
+        let xhr = new XMLHttpRequest();
+        url = 'http://127.0.0.1:8000/exchange/' + resp.email + '/' + resp.password + '';
+        xhr.open("PUT", url);
+        xhr.send(formData);
 
-    // send it out
-    let xhr = new XMLHttpRequest();
-    url = 'http://127.0.0.1:8000/exchange/' + resp.email + '/' + resp.password + '';
-    xhr.open("PUT", url);
-    xhr.send(formData);
+        xhr.onload = () => console.log(xhr.response);
+    } else {
+        window.location.href = 'login'
 
-    xhr.onload = () => alert(xhr.response);
+    }
 }
 
 
@@ -271,13 +286,48 @@ dataSocket.onopen = function(e) {
     console.log('connection establish')
 
 }
-
+var count_buy_sell_buy_ok_bsell = 0
+var count_buy_sell_buy_ok_hsell = 0
 dataSocket.onmessage = function(e) {
     var recData = JSON.parse(e.data);
     const myObj = {
         binance: recData['price_binance'],
         huobi: recData['price_huobi'],
     };
+
+    if (diffrence(recData['price_huobi'], recData['price_binance']) > sell_buy_ok) {
+        count_buy_sell_buy_ok_bsell++
+
+    } else {
+        count_buy_sell_buy_ok_bsell = 0
+    }
+    if (diffrence(recData['price_huobi'], recData['price_binance']) < -1 * (sell_buy_ok)) {
+        count_buy_sell_buy_ok_hsell++
+    } else {
+        count_buy_sell_buy_ok_hsell = 0
+    }
+    if (resp) {
+        if (count_buy_sell_buy_ok_bsell == 0 && count_buy_sell_buy_ok_hsell == 0) {
+            // document.getElementById("buy_btn").style.backgroundColor = "#d9340b"
+            document.getElementById("buy_btn").disabled = false;
+            document.getElementById("buy_btn").innerHTML = "0/3"
+        } else if (count_buy_sell_buy_ok_bsell == 1 || count_buy_sell_buy_ok_hsell == 1) {
+            // document.getElementById("buy_btn").style.backgroundColor = "#d9340b"
+            document.getElementById("buy_btn").disabled = false;
+            document.getElementById("buy_btn").innerHTML = "1/3"
+        } else if (count_buy_sell_buy_ok_bsell == 2 || count_buy_sell_buy_ok_hsell == 2) {
+            // document.getElementById("buy_btn").style.backgroundColor = "#d9340b"
+            document.getElementById("buy_btn").disabled = false;
+            document.getElementById("buy_btn").innerHTML = "2/3"
+        } else if (count_buy_sell_buy_ok_bsell >= 3 || count_buy_sell_buy_ok_hsell >= 3) {
+            // document.getElementById("buy_btn").style.backgroundColor = "#0942bd"
+            document.getElementById("buy_btn").disabled = false;
+            document.getElementById("buy_btn").innerHTML = "buy mtf"
+        }
+    }
+
+    // console.log("bsell: " + count_buy_sell_buy_ok_bsell + " hsell: " + count_buy_sell_buy_ok_hsell);
+
     // var num2 = parseFloat(recData['price_binance']).toFixed(2)
     // console.log(typeof recData['price_binance'])
     document.getElementById("huobi_price").innerHTML = recData['price_huobi'];
@@ -317,7 +367,7 @@ dataSocket.onmessage = function(e) {
         y: diffrence(recData['price_huobi'], recData['price_binance'])
     })
 
-    console.log(diff)
+    // console.log(diff)
     chart.updateSeries([{
             name: 'binance',
             data: data_binance

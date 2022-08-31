@@ -1,5 +1,5 @@
 .buy_btn {
-    background-color: green;
+    background-color: #07dade;
     display: block;
     bottom: 20px;
     right: 20px;
@@ -49,6 +49,17 @@
     padding: 20px;
     border: 1px solid #888;
     width: 55% !important;
+}
+
+.asset-percentage {
+    display: flex;
+    /* width: 60%; */
+    /* justify-content: space-between; */
+}
+
+.asset-percentage select {
+    margin-left: 2rem;
+    width: 6rem !important;
 }
 
 

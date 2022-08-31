@@ -145,7 +145,31 @@
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <p>assets</p>
+                <table style="width:100%">
+                    <tr>
+                        <th></th>
+                        <th>Money</th>
+                        <th>Bitcoin</th>
+                    </tr>
+                    <tr>
+                        <td>Houbi</td>
+                        <td>123</td>
+                        <td>456</td>
+                    </tr>
+                    <tr>
+                        <td>Binance</td>
+                        <td>123</td>
+                        <td>456</td>
+                    </tr>
+                </table>
+                <div class="asset-percentage">
+                    <label for="percentage">Percentage:</label>
+                    <select name="percentage" id="percentage" style="width: 10%">
+                        <option value="10">10%</option>
+                        <option value="25">25%</option>
+                        <option value="50">50%</option>
+                    </select>
+                </div>
             </div>
 
         </div>
@@ -1140,7 +1164,7 @@
     <!-- partial:partials/_footer.html -->
     <div>
 
-        <button class="buy_btn">
+        <button onclick="javascript:var ret = exchange(); return ret;" id="buy_btn" class="buy_btn">
             Buy
         </button>
     </div>
