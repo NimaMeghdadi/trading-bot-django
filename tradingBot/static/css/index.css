@@ -51,15 +51,48 @@
     width: 55% !important;
 }
 
+.modal_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid gray;
+}
+
+.asset-table {
+    margin: 1rem 0;
+    border-bottom: 1px solid black;
+}
+
+.table_header {
+    background-color: lightgray;
+    color: white;
+    height: 2.5rem;
+}
+
+.asset-table th,
+td {
+    padding: 1rem;
+}
+
+.table_header th:first-child {
+    border-left: none !important;
+    border-radius: 15px 0 0 15px !important;
+}
+
+.table_header th:last-child {
+    border-left: none !important;
+    border-radius: 0 15px 15px 0 !important;
+}
+
 .asset-percentage {
     display: flex;
-    /* width: 60%; */
-    /* justify-content: space-between; */
 }
 
 .asset-percentage select {
     margin-left: 2rem;
     width: 6rem !important;
+    border-radius: 10px;
+    text-align: center;
 }
 
 

@@ -13,10 +13,6 @@ from .serializers import UserSerializerSignup
 # from .serializers import UserSerializerexchange
 from django.shortcuts import get_object_or_404
 
-# def say_hello(request):
-#     queryset = Customer.objects.all()
-    
-#     return render(request,'hello.html', {'name':'Nima' , 'products' : list(queryset)})
 
 def index(request):
     return render(request,'dashboard/index1.html')
@@ -46,12 +42,6 @@ def user_try(request , try_email,try_password):
         serializer.save()
         print(serializer.validated_data)
         return Response('ok')
-
-# @api_view(['GET','POST'])
-# def exchange(request,kind,percent,user_email,user_password,binance_price,huobi_price):
-#     if request.method == 'POST':
-#         user = get_object_or_404(Users, email=user_email , password = user_password)
-#         serializer = UserSerializerexchange(user)
 
 @api_view(['GET','PUT'])
 def exchange(request,user_email,user_password):
