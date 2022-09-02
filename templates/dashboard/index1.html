@@ -31,10 +31,11 @@
                 </div>
                 <div>
                     <a class="navbar-brand brand-logo" href="index.html">
-                        <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/trading-automation-5258506-4412182.png" width="50" height="55" alt="logo" />
+                        <img src="	https://logos.textgiraffe.com/logos/logo-name/Nima-designstyle-colors-o.png
+                        " width="100" height="300" alt="logo" />
                     </a>
                     <a class="navbar-brand brand-logo-mini" href="index.html">
-                        <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/trading-automation-5258506-4412182.png" alt="logo" />
+                        <img src="https://logos.textgiraffe.com/logos/logo-name/Nima-designstyle-colors-o.png" alt="logo" />
                     </a>
                 </div>
             </div>
@@ -296,25 +297,42 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{% url 'index' %}">
                             <i class="fa-solid fa-chart-line me-2"></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item nav-category">Coins</li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#coins" aria-expanded="false" aria-controls="ui-basic">
                             <!-- <i class="menu-icon mdi mdi-floor-plan"></i> -->
                             <i class="fa-solid fa-coins me-2"></i>
                             <span class="menu-title">Coins</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="ui-basic">
+                        <div class="collapse" id="coins">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Bitcoins</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">SHIBA
+                                <li class="nav-item"> <a class="nav-link" href="{% url 'future' %}">SHIBA
                                         INU</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Ethereum</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{% url 'future' %}">Ethereum</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-category">Markets</li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#markets" aria-expanded="false" aria-controls="ui-basic">
+                            <!-- <i class="menu-icon mdi mdi-floor-plan"></i> -->
+                            <!-- <i class="fa-regular fa-store me-2"></i> -->
+                            <i class="fa-thin fa-store"></i>
+                            <span class="menu-title">Markets</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="markets">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{% url 'future' %}">Binance</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{% url 'future' %}">Huobi</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{% url 'future' %}">Kucoin</a></li>
                             </ul>
                         </div>
                     </li>
@@ -408,7 +426,7 @@
     </div>
     <div>
 
-        <button onclick="javascript:var ret = exchange(); return ret;" id="buy_btn" class="buy_btn">
+        <button onclick="javascript:var ret = exchange(event); return ret;" id="buy_btn" class="buy_btn">
             Buy
         </button>
     </div>

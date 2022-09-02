@@ -17,6 +17,9 @@ from django.shortcuts import get_object_or_404
 def index(request):
     return render(request,'dashboard/index1.html')
 
+def future(request):
+    return render(request,'future.html')
+
 def login(request):
     return render(request,'account/login.html' )
 
@@ -53,5 +56,5 @@ def exchange(request,user_email,user_password):
         serializer = UserSerializer(user,data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data)
+        return Response("ok")
 
