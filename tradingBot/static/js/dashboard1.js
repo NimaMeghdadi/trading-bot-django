@@ -66,7 +66,7 @@ function showNotification(benefit) {
     //      return;
     //  }
     let title = "your benefit is";
-    let body = benefit;
+    let body = benefit + "$";
 
     let notification = new Notification(title, { body });
 
@@ -103,8 +103,7 @@ function exchange(e) {
             var sum_old = parseFloat(resp.huobi_money) + parseFloat(resp.binance_money)
             var sum_new = parseFloat(new_huobi_money) + parseFloat(new_binance_money)
             benefit = sum_new - sum_old
-                // console.log("bitcoun old" + (parseFloat(resp.binance_bitcoin) + parseFloat(resp.huobi_bitcoin)));
-                // console.log("bitcoun new" + (parseFloat(new_huobi_bitcoin) + parseFloat(new_binance_bitcoin)));
+            benefit = benefit.toFixed(2)
             showNotification(benefit)
             console.log("benefit: " + benefit)
 
@@ -133,8 +132,7 @@ function exchange(e) {
             var sum_old = parseFloat(resp.huobi_money) + parseFloat(resp.binance_money)
             var sum_new = parseFloat(new_huobi_money) + parseFloat(new_binance_money)
             benefit = (sum_new) - (sum_old)
-                // console.log("bitcoun old" + (parseFloat(resp.binance_bitcoin) + parseFloat(resp.huobi_bitcoin)));
-                // console.log("bitcoun new" + (parseFloat(new_huobi_bitcoin) + parseFloat(new_binance_bitcoin)));
+            benefit = benefit.toFixed(2)
             console.log("benefit: " + benefit)
 
             showNotification(benefit)
@@ -204,7 +202,7 @@ var diff_chart = {
                 ranges: [{
                     from: 0,
                     to: sell_buy_ok,
-                    color: '#feeb19'
+                    color: '#ede209'
                 }, {
                     from: sell_buy_ok,
                     to: 1,
@@ -216,7 +214,7 @@ var diff_chart = {
                 }, {
                     from: -1,
                     to: -sell_buy_ok,
-                    color: '#cc19fe'
+                    color: '#3f00ff'
                 }]
             },
             columnWidth: '80%',
@@ -333,7 +331,7 @@ var options = {
     legend: {
         show: false
     },
-    colors: ['#77B6EA', '#545454']
+    colors: ['#ede209', '#198cfe']
 };
 
 var chart = new ApexCharts(document.querySelector("#chart"), options);

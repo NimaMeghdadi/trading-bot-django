@@ -312,7 +312,7 @@
                         </a>
                         <div class="collapse" id="coins">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Bitcoins</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{% url 'index' %}">Bitcoins</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{% url 'future' %}">SHIBA
                                         INU</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{% url 'future' %}">Ethereum</a></li>
@@ -324,15 +324,25 @@
                         <a class="nav-link" data-bs-toggle="collapse" href="#markets" aria-expanded="false" aria-controls="ui-basic">
                             <!-- <i class="menu-icon mdi mdi-floor-plan"></i> -->
                             <!-- <i class="fa-regular fa-store me-2"></i> -->
-                            <i class="fa-thin fa-store"></i>
+                            <i class="fa-sharp fa-solid fa-shop me-2"></i>
                             <span class="menu-title">Markets</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="collapse" id="markets">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="{% url 'future' %}">Binance</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{% url 'future' %}">Huobi</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{% url 'future' %}">Kucoin</a></li>
+                                <div>
+                                    <input type="checkbox" id="Binance" name="Binance" checked disabled>
+                                    <label for="Binance">Binance</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="Huobi" name="Huobi" checked disabled>
+                                    <label for="Huobi">Huobi</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="Kucoin" name="Kucoin" disabled>
+                                    <label for="Kucoin">Kucoin</label>
+                                </div>
+
                             </ul>
                         </div>
                     </li>
