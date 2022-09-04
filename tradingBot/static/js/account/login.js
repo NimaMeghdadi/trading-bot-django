@@ -25,7 +25,3 @@ function loginTry(e) {
         }
     }
 }
-// export { email };
-// module.exports = { email };
-// module.exports = { request }
-// export default request

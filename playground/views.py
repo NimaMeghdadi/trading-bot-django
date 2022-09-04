@@ -44,7 +44,7 @@ def user_try(request , try_email,try_password):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         print(serializer.validated_data)
-        return Response('ok')
+        return Response(serializer.data)
 
 @api_view(['GET','PUT'])
 def exchange(request,user_email,user_password):

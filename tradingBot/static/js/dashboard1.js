@@ -19,8 +19,16 @@ var recData
 var resp = localStorage.getItem("person_info");
 // updateUser()
 resp = JSON.parse(resp)
-updateUser()
-updateAsset()
+
+window.onload = init()
+
+function init() {
+    if (resp) {
+        updateUser()
+        updateAsset()
+    }
+
+}
 
 function updateAsset() {
     document.getElementById("huobi_money").innerHTML = resp.huobi_money;
@@ -32,20 +40,23 @@ function updateAsset() {
 loginDetail()
 
 function updateUser() {
-    const request = new XMLHttpRequest();
-    const url = 'http://127.0.0.1:8000/users/' + resp.email + '/' + resp.password + '';
-    request.open("GET", url);
-    request.send();
+    if (resp) {
 
-    request.onload = (e) => {
-        // console.log(JSON.parse(request.response));
-        let resp = JSON.parse(request.response)
-        if (resp.id) {
-            localStorage.setItem("person_info", request.response);
+        const request = new XMLHttpRequest();
+        const url = 'http://127.0.0.1:8000/users/' + resp.email + '/' + resp.password + '';
+        request.open("GET", url);
+        request.send();
+
+        request.onload = (e) => {
+            // console.log(JSON.parse(request.response));
+            let resp = JSON.parse(request.response)
+            if (resp.id) {
+                localStorage.setItem("person_info", request.response);
+            }
         }
-    }
 
-    updateAsset()
+        updateAsset()
+    }
 }
 let permission = Notification.permission;
 
@@ -85,7 +96,7 @@ function exchange(e) {
         percentage = Number(document.getElementById("percentage").value)
         let formData = new FormData(document.forms.person);
         if (diffrence(recData['price_huobi'], recData['price_binance']) > 0) {
-            console.log("Binance Sell");
+            // console.log("Binance Sell");
             var minn = Math.min.apply(null, [(resp.binance_bitcoin * binance_price), resp.huobi_money])
             var mb = (minn * percentage / 100)
             var mm = mb / (binance_price)
@@ -113,8 +124,8 @@ function exchange(e) {
             formData.append("binance_bitcoin", new_binance_bitcoin);
 
         } else if (diffrence(recData['price_huobi'], recData['price_binance']) < 0) {
-            console.log("diffrence price huobi:" + recData['price_huobi'] + "price huobi:" + recData['price_binance']);
-            console.log("Huobi sell");
+            // console.log("diffrence price huobi:" + recData['price_huobi'] + "price huobi:" + recData['price_binance']);
+            // console.log("Huobi sell");
             var minn = Math.min.apply(null, [(resp.huobi_bitcoin * recData['price_huobi']), resp.binance_money])
             var mb = (minn * percentage) / 100
             var mm = mb / (recData['price_huobi'])
@@ -133,7 +144,7 @@ function exchange(e) {
             var sum_new = parseFloat(new_huobi_money) + parseFloat(new_binance_money)
             benefit = (sum_new) - (sum_old)
             benefit = benefit.toFixed(2)
-            console.log("benefit: " + benefit)
+                // console.log("benefit: " + benefit)
 
             showNotification(benefit)
 

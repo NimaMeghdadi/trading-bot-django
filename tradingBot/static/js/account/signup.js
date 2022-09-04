@@ -10,10 +10,7 @@ function validatePassword() {
     }
 }
 
-function loginTryy(e) {
-    e.preventDefault();
-    console.log("nima fa")
-}
+
 
 function loginTry(e) {
     e.preventDefault();
@@ -25,11 +22,16 @@ function loginTry(e) {
 
     // send it out
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://127.0.0.1:8000/users/a");
+    xhr.open("POST", "http://127.0.0.1:8000/users/a/a");
     xhr.send(formData);
-
-    xhr.onload = () => alert(xhr.response);
+    xhr.onload = () => {
+        let resp = JSON.parse(xhr.response)
+        if (resp.email == email.value) {
+            window.location.href = "http://127.0.0.1:8000/login"
+        } else {
+            alert("yor username already taken")
+        }
+    }
 }
-
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
