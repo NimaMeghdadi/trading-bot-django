@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
     <link rel="stylesheet" href="{% static 'css/vertical-layout-light/style.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/future.css' %}">
 </head>
 
 <body>
@@ -341,7 +343,7 @@
 
                     <li class="nav-item nav-category">help</li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{%static 'pdfs/poster.pdf'%}">
+                        <a class="nav-link" href="{%static 'pdfs/Thesis.pdf'%}">
                             <i class="fa-solid fa-file-pdf me-2"></i>
                             <span class="menu-title">Documentation</span>
                         </a>
@@ -434,11 +436,64 @@
     </div>
 
     <footer class="footer">
+        <div class="container-fluid">
+            <div class="row d-flex align-items-start justify-content-center">
+                <div class="col-md-9 py-5 px-5 text-center">
+                    <h2 class="mb-5">About us</h2>
+                    <p class="mb-5">
+                        this bot can be used for automatic trading in different markets such as Binance and Huobi and ...
+                    </p>
+                    <section class="mb-4">
+                        <a class="btn text-white btn-floating m-1" style="background-color: #3b5998" href="#!" role="button">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="btn text-white btn-floating m-1" style="background-color: #55acee" href="#!" role="button">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="btn text-white btn-floating m-1" style="background-color: #dd4b39" href="#!" role="button">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a class="btn text-white btn-floating m-1" style="background-color: #ac2bac" href="#!" role="button">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="btn text-white btn-floating m-1" style="background-color: #0082ca" href="#!" role="button">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a class="btn text-white btn-floating m-1" style="background-color: #333333" href="#!" role="button">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </section>
+                </div>
+                <div class="col-md-3 col-sm-6 py-md-4 py-4 aside-stretch-right pl-lg-3 pr-lg-4">
+                    <h2 class="mb-3">Contact us</h2>
+                    <form action="#" class="contact-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Email" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject" />
+                        </div>
+                        <div class="form-group">
+                            <textarea name="" id="" cols="30" rows="3" class="form-control" placeholder="Message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="form-control submit px-3">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- <footer class="footer">
         <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights
                 reserved.</span>
         </div>
-    </footer>
+    </footer> -->
 
     </div>
 

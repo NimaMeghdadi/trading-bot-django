@@ -1,1 +1,50 @@
-<h1>FUTURE</h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/future.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container d-flex align-items-center ">
+        <div class="future-container row mx-auto py-3">
+            <div class="col-lg-7 text-center">
+                <img class="fix-illustrator" src="{% static 'images/coming-soon2.jpg' %}" width="500" height="400">
+            </div>
+            <div class="col-lg-4 ">
+                <div class="info text-center">
+                    <p>We are adding new features...</p>
+                    <p>Some features will be added soon</p>
+                </div>
+                <div class="contact mt-2">
+                    <a href="#" class="mx-2">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="mx-2">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="mx-2">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a href="#" class="mx-2">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="mx-2">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="mx-2">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

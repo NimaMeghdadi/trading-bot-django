@@ -73,9 +73,6 @@ function requestAndShowPermission() {
 }
 
 function showNotification(benefit) {
-    //  if(document.visibilityState === "visible") {
-    //      return;
-    //  }
     let title = "your benefit is";
     let body = benefit + "$";
 
@@ -91,78 +88,81 @@ function showNotification(benefit) {
 function exchange(e) {
     e.preventDefault();
     if (resp && recData) {
-        resp = localStorage.getItem("person_info");
-        resp = JSON.parse(resp)
-        percentage = Number(document.getElementById("percentage").value)
-        let formData = new FormData(document.forms.person);
-        if (diffrence(recData['price_huobi'], recData['price_binance']) > 0) {
-            // console.log("Binance Sell");
-            var minn = Math.min.apply(null, [(resp.binance_bitcoin * binance_price), resp.huobi_money])
-            var mb = (minn * percentage / 100)
-            var mm = mb / (binance_price)
+        if (resp.huobi_money == null || resp.huobi_bitcoin == null || resp.binance_money == null || resp.binance_bitcoin == null || resp.huobi_money == 0 || resp.huobi_bitcoin == 0 || resp.binance_money == 0 || resp.binance_bitcoin == 0) {
+            alert("you don't have money")
+        } else {
+            resp = localStorage.getItem("person_info");
+            resp = JSON.parse(resp)
+            percentage = Number(document.getElementById("percentage").value)
+            let formData = new FormData(document.forms.person);
+            if (diffrence(recData['price_huobi'], recData['price_binance']) > 0) {
+                // console.log("Binance Sell");
+                var minn = Math.min.apply(null, [(resp.binance_bitcoin * binance_price), resp.huobi_money])
+                var mb = (minn * percentage / 100)
+                var mm = mb / (binance_price)
 
-            var new_binance_bitcoin = resp.binance_bitcoin - mm
-            var new_binance_money = resp.binance_money + mb
-            var new_huobi_money = resp.huobi_money - (mm * recData['price_huobi'])
-            var new_huobi_bitcoin = resp.huobi_bitcoin + mm
+                var new_binance_bitcoin = resp.binance_bitcoin - mm
+                var new_binance_money = resp.binance_money + mb
+                var new_huobi_money = resp.huobi_money - (mm * recData['price_huobi'])
+                var new_huobi_bitcoin = resp.huobi_bitcoin + mm
 
-            new_huobi_money = new_huobi_money.toFixed(2)
-            new_huobi_bitcoin = new_huobi_bitcoin.toFixed(6)
-            new_binance_money = new_binance_money.toFixed(2)
-            new_binance_bitcoin = new_binance_bitcoin.toFixed(6)
+                new_huobi_money = new_huobi_money.toFixed(2)
+                new_huobi_bitcoin = new_huobi_bitcoin.toFixed(6)
+                new_binance_money = new_binance_money.toFixed(2)
+                new_binance_bitcoin = new_binance_bitcoin.toFixed(6)
 
-            var sum_old = parseFloat(resp.huobi_money) + parseFloat(resp.binance_money)
-            var sum_new = parseFloat(new_huobi_money) + parseFloat(new_binance_money)
-            benefit = sum_new - sum_old
-            benefit = benefit.toFixed(2)
-            showNotification(benefit)
-            console.log("benefit: " + benefit)
+                var sum_old = parseFloat(resp.huobi_money) + parseFloat(resp.binance_money)
+                var sum_new = parseFloat(new_huobi_money) + parseFloat(new_binance_money)
+                benefit = sum_new - sum_old
+                benefit = benefit.toFixed(2)
+                showNotification(benefit)
+                console.log("benefit: " + benefit)
 
-            formData.append("huobi_money", new_huobi_money);
-            formData.append("huobi_bitcoin", new_huobi_bitcoin);
-            formData.append("binance_money", new_binance_money);
-            formData.append("binance_bitcoin", new_binance_bitcoin);
+                formData.append("huobi_money", new_huobi_money);
+                formData.append("huobi_bitcoin", new_huobi_bitcoin);
+                formData.append("binance_money", new_binance_money);
+                formData.append("binance_bitcoin", new_binance_bitcoin);
 
-        } else if (diffrence(recData['price_huobi'], recData['price_binance']) < 0) {
-            // console.log("diffrence price huobi:" + recData['price_huobi'] + "price huobi:" + recData['price_binance']);
-            // console.log("Huobi sell");
-            var minn = Math.min.apply(null, [(resp.huobi_bitcoin * recData['price_huobi']), resp.binance_money])
-            var mb = (minn * percentage) / 100
-            var mm = mb / (recData['price_huobi'])
+            } else if (diffrence(recData['price_huobi'], recData['price_binance']) < 0) {
+                // console.log("diffrence price huobi:" + recData['price_huobi'] + "price huobi:" + recData['price_binance']);
+                // console.log("Huobi sell");
+                var minn = Math.min.apply(null, [(resp.huobi_bitcoin * recData['price_huobi']), resp.binance_money])
+                var mb = (minn * percentage) / 100
+                var mm = mb / (recData['price_huobi'])
 
-            var new_huobi_bitcoin = resp.huobi_bitcoin - mm
-            var new_huobi_money = resp.huobi_money + mb
-            var new_binance_bitcoin = resp.binance_bitcoin + mm
-            var new_binance_money = resp.binance_money - (mm * recData['price_binance'])
+                var new_huobi_bitcoin = resp.huobi_bitcoin - mm
+                var new_huobi_money = resp.huobi_money + mb
+                var new_binance_bitcoin = resp.binance_bitcoin + mm
+                var new_binance_money = resp.binance_money - (mm * recData['price_binance'])
 
-            new_huobi_money = new_huobi_money.toFixed(2)
-            new_huobi_bitcoin = new_huobi_bitcoin.toFixed(6)
-            new_binance_money = new_binance_money.toFixed(2)
-            new_binance_bitcoin = new_binance_bitcoin.toFixed(6)
+                new_huobi_money = new_huobi_money.toFixed(2)
+                new_huobi_bitcoin = new_huobi_bitcoin.toFixed(6)
+                new_binance_money = new_binance_money.toFixed(2)
+                new_binance_bitcoin = new_binance_bitcoin.toFixed(6)
 
-            var sum_old = parseFloat(resp.huobi_money) + parseFloat(resp.binance_money)
-            var sum_new = parseFloat(new_huobi_money) + parseFloat(new_binance_money)
-            benefit = (sum_new) - (sum_old)
-            benefit = benefit.toFixed(2)
-                // console.log("benefit: " + benefit)
+                var sum_old = parseFloat(resp.huobi_money) + parseFloat(resp.binance_money)
+                var sum_new = parseFloat(new_huobi_money) + parseFloat(new_binance_money)
+                benefit = (sum_new) - (sum_old)
+                benefit = benefit.toFixed(2)
+                    // console.log("benefit: " + benefit)
 
-            showNotification(benefit)
+                showNotification(benefit)
 
-            formData.append("huobi_money", new_huobi_money);
-            formData.append("huobi_bitcoin", new_huobi_bitcoin);
-            formData.append("binance_money", new_binance_money);
-            formData.append("binance_bitcoin", new_binance_bitcoin);
+                formData.append("huobi_money", new_huobi_money);
+                formData.append("huobi_bitcoin", new_huobi_bitcoin);
+                formData.append("binance_money", new_binance_money);
+                formData.append("binance_bitcoin", new_binance_bitcoin);
+
+            }
+            let xhr = new XMLHttpRequest();
+            url = 'http://127.0.0.1:8000/exchange/' + resp.email + '/' + resp.password + '';
+            xhr.open("PUT", url);
+            xhr.send(formData);
+
+            xhr.onload = () => updateUser();
+
 
         }
-        let xhr = new XMLHttpRequest();
-        url = 'http://127.0.0.1:8000/exchange/' + resp.email + '/' + resp.password + '';
-        xhr.open("PUT", url);
-        xhr.send(formData);
-
-        xhr.onload = () => updateUser();
-
-
-
     } else {
         window.location.href = 'login'
 
@@ -174,6 +174,8 @@ function exchange(e) {
 function loginDetail() {
     if (resp) {
         // console.log(resp);
+        resp.first_name = resp.first_name === null ? ' ' : resp.first_name
+        resp.last_name = resp.last_name === null ? ' ' : resp.last_name
         document.getElementById("name").innerHTML = resp.first_name + " " + resp.last_name;
         document.getElementById("email").innerHTML = resp.email;
         document.getElementById("login_true").style.display = "block"
